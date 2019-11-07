@@ -18,9 +18,12 @@ app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Requiring our routes
+// Requiring our routes. Updated with new routes.
 require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
+require("./routes/rating-api-routes")(app);
+require("./routes/restaurant-api-routes")(app);
+require("./routes/user-api-routes")(app);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(function() {
