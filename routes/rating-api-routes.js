@@ -36,7 +36,8 @@ module.exports = function (app) {
         console.log("New rating" + dbRating);
     });
 
-    app.delete("/api/rating/:id", function (req, res) {
+    //UPDATE: We also probably don't want the user to be able to DELETE the reivew.
+    /* app.delete("/api/rating/:id", function (req, res) {
         db.Author.destroy({
             where: {
                 id: req.params.id
@@ -45,6 +46,8 @@ module.exports = function (app) {
             res.json(dbRating);
         });
         console.log("Deleted rating" + dbRating);
-    });
+    }); */
+
+    //TODO: Possible adding a PUT for rating update.
 
 }

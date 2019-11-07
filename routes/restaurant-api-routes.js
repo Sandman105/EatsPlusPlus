@@ -1,6 +1,6 @@
 var db = require("../models");
 
-console.log("Line 3 Restaurant API")
+console.log("Line 3 Restaurant API Routes")
 
 module.exports = function (app) {
     // GET route for getting all of the restaurants
@@ -48,7 +48,8 @@ module.exports = function (app) {
 
     // DELETE route for deleting restaurant
     //TODO: Are we going to be deleting restaurant information?
-    app.delete("/api/restaurant/:id", function (req, res) {
+    //UPDATE: Commented out DELETE since we probably don't want user to be able to DELETE RESTAURANT.
+   /*  app.delete("/api/restaurant/:id", function (req, res) {
         db.Restaurant.destroy({
             where: {
                 id: req.params.id
@@ -57,10 +58,11 @@ module.exports = function (app) {
             res.json(dbRestaurant);
         });
         console.log("Restaurant deleted" + dbRestaurant);
-    });
+    }); */
 
     // PUT route for updating restaurant information
-    app.put("/api/restaurant", function (req, res) {
+    //UPDATE: We don't really need a PUT here since we are using Places library, so RESTAURANT information wont need updating.
+    /* app.put("/api/restaurant", function (req, res) {
         db.Restaurant.update(
             req.body,
             {
@@ -72,7 +74,7 @@ module.exports = function (app) {
                 res.json(dbRestaurant);
             });
             console.log("Restaurant updated" + dbRestaurant);
-    });
+    }); */
 
 
 
