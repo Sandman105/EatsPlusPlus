@@ -35,3 +35,15 @@
 .searchbar_btn, .begin_searchbar_btn:hover {
     cursor: pointer;
 }
+
+.commentSubmitBtn {
+    margin-left: 12px;
+}
+
+.comment_area {
+    padding: 0;
+}
+
+li {
+    margin-left: 23px;
+}
