@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "kershaw19",
-    "database": "passport_demo",
+    "password": "vsmaster",
+    "database": "EatsPlusPlus",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
