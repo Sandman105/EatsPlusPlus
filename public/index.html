@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>eats ++</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Our css -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- US address jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.17.0"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- Top buttons -->
+            <div class="col s4 top-left">
+                <a class="waves-effect waves-light btn-small add_restaurant"><i class="material-icons left">add</i>Add</a>
+                <a class="waves-effect waves-light btn-small search_btn"><i class="material-icons left">search</i>search</a>
+                <div class="row searchbar" style="display:none">
+                    <div class="col s10">
+                        <input placeholder="Search" id="search" type="text" class="validate searchbar"></input>
+                    </div>
+                    <div class="col s2">
+                        <i class="material-icons searchbar_btn">search</i>
+                    </div>
+                </div>
+            </div>
+            <div class="col s1"></div>
+            <div class="col s2">
+                    <img src="./assets/images/burger.jpg" alt="" height=100></img>
+            </div>
+            <div class="col s1"></div>
+            <div class="col s4">
+                <a class="waves-effect waves-light btn-small developer">Developer</a>
+                <a class="waves-effect waves-light btn-small about_us">About Us</a>
+            </div>
+            <!-- Add restaurant form -->
+            <div class="form-area">
+                <form class="form-display">
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <input placeholder="What's the name" id="restaurant_name" type="text" class="validate">
+                            <label for="restaurant_name">Restaurant Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s5">
+                            <input placeholder="000-000-0000" id="restaurant_phone_number" type="text" class="validate">
+                            <label for="restaurant_phone_number">Phone Number</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="What's the address?" id="restaurant_address" type="search">
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light submitBtn" type="submit" name="action">Submit<i class="material-icons right">send</i></button>
+                </form>
+            </div>
+            <div class="begin_search">
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <input placeholder="What's the name" id="restaurant_name" type="text" class="validate begin_searchbar col s10">
+                <i class="material-icons right begin_searchbar_btn col s2">search</i>
+            </div>
+            <!-- Restaurant list display area -->
+            <div class="col s10 offset-s1 list-display" style="display:none">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Restaurant</th>
+                            <th scope="col">Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody class="restaurant_list"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Our js -->
+    <script src="./assets/js/index.js"></script>
+    
+</body>
+</html>
