@@ -35,8 +35,8 @@ module.exports = function (app) {
       // Join with 'Comment', but don't actually return the comments
       include: [{ model: Rating, attributes: [rating] }],
       // Return SUM(Comment.likes) as the only attribute
-      attributes: [[db.fn('AVG', db.col('Rating.rating')), 'rating'], [db.Restaurant.col('Restaurant.Name'),'name'], [db.Restaurant.col('Restaurant.id'),'id']],
-      // Filter on publishDate
+      attributes: [[db.fn('AVG', db.col('Rating.rating')), 'rating'], [db.col('Restaurant.Name'),'name'], [db.col('Restaurant.id'),'id']],
+      group: ['name', 'id'],
       raw: true
       //where: { publishDate: { gte: new Date('2015-05-01') } },
 
@@ -50,11 +50,13 @@ module.exports = function (app) {
     var restaurantID = req.params.id;
     db.Restaurant.findAll({
       include: [{ model: Rating, attributes: [rating] }],
-      attributes: [[db.fn('COUNT', db.Restaurant.col('Rating.rating'),'rating')], [db.col('Rating.rating')], [db.Restaurant.col('name')]],
+      attributes: [[db.fn('COUNT', db.col('Rating.rating'),'rating')], [db.col('Rating.rating')], [db.col('name')]],
       where: {id: restaurantID},
+      group: ['name','rating'],
       raw: true
     }).then(function (result) {
       console.log(JSON.stringify(result));
+      //res.json(result); //uncomment when done testing and want to send to front-end
     });
   });
 
