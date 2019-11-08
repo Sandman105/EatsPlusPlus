@@ -36,14 +36,14 @@ module.exports = function (app) {
         {
           model: db.Rating,
           required: true, //makes it an inner join rather than left outer which is default
-          attributes: [[db.sequelize.fn("AVG",db.sequelize.col("rating")), "rating"]]
+          attributes: [[db.sequelize.fn("AVG", db.sequelize.col("rating")), "rating"]]
         }
       ],
-       attributes: [
-         //[db.sequelize.fn('AVG', db.sequelize.col("Rating.rating")), "rating"],
-         "Name",
-         "Id"
-       ],
+      attributes: [
+        //[db.sequelize.fn('AVG', db.sequelize.col("Rating.rating")), "rating"],
+        "Name",
+        "Id"
+      ],
       group: ["Name", "Id"],
       //order: [[db.sequelize.col("rating"), "DESC"]], //confirm with Joe why this does not work
       raw: true
@@ -58,15 +58,21 @@ module.exports = function (app) {
   app.get("/api/getRestaurantInfo/:id", (req, res) => {
     var restaurantID = req.params.id;
     db.Restaurant.findAll({
-      include: [{ model: Rating, attributes: [rating] }],
-      attributes: [[db.fn('COUNT', db.col('Rating.rating'), 'rating')], [db.col('Rating.rating')], [db.col('name')]],
-      where: { id: restaurantID },
-      group: ['name', 'rating'],
-      raw: true
+      include: [
+        {
+          model: db.Rating,
+          required: true,
+          attributes: [[db.sequelize.fn("COUNT", db.sequelize.col("rating")), "ratingCount"], "rating"]
+        }
+      ],
+      attributes: ["name"],
+        where: { id: restaurantID },
+        group: ['name', 'rating'],
+        raw: true
     }).then(function (result) {
-      console.log(JSON.stringify(result));
-      //res.json(result); //uncomment when done testing and want to send to front-end
-    });
+          console.log(result);
+          //res.json(result); //uncomment when done testing and want to send to front-end
+        });
   });
 
   app.post("/api/new/:userId/:restaurantId/", (req, res) => {
