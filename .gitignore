@@ -1,3 +1,4 @@
 node_modules
-schema
+schema.sql
+seeds.sql
 .DS_Store
