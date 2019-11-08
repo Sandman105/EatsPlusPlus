@@ -4,22 +4,43 @@ console.log("Line 3 Restaurant API Routes")
 
 module.exports = function (app) {
     // GET route for getting all of the restaurants
-    app.get("/api/restaurant", function (req, res) {
+    app.get("/api/all/restaurant", function (req, res) {
         var query = {};
         //TODO: Not sure if we are just retrieving just the name object of restaurant or all objects, category and address. 
-        if (req.query.name) {
+        if (req.query) {
             query.Name = req.query.name;
         }
         // Here we add an "include" property to our options in our findAll query
         // We set the value to an array of the models we want to include in a left outer join
         //TODO: Are we returning just restaurant & rating? Guessing we need user also in return. How do we do a JOIN with include to include two values, need to check documentation.
         db.Restaurant.findAll({
-            where: query,
-            include: [db.Rating]
+            
         }).then(function (dbRestaurant) {
+            console.log("This is all restaurant information" + dbRestaurant);
             res.json(dbRestaurant);
-        });
-        console.log("This is all restaurants" + dbRestaurant);
+        }).catch(function (err) {
+            console.log(err)
+        })
+    });
+
+    app.get("/api/getRestaurantInfo/:id", function (req, res) {
+        
+        //TODO: Not sure if we are just retrieving just the name object of restaurant or all objects, category and address. 
+        
+        // Here we add an "include" property to our options in our findAll query
+        // We set the value to an array of the models we want to include in a left outer join
+        //TODO: Are we returning just restaurant & rating? Guessing we need user also in return. How do we do a JOIN with include to include two values, need to check documentation.
+        db.Restaurant.findAll({
+            where: {
+                id: req.params.id
+            }
+            
+        }).then(function (dbRestaurant) {
+            console.log("This is all restaurant information" + dbRestaurant);
+            res.json(dbRestaurant);
+        }).catch(function (err) {
+            console.log(err)
+        })
     });
 
     // Get route for retrieving a single restaurant
@@ -27,23 +48,25 @@ module.exports = function (app) {
         // Here we add an "include" property to our options in our findOne query
         // We set the value to an array of the models we want to include in a left outer join
         //TODO: Looking for single restaurant should include the user and rating, need to resolve this, so the where property.
-        db.Restaurant.findOne({
+
+        db.Rating.findOne({
             where: {
                 id: req.params.id
             },
-            include: [db.Rating]
+            include: [db.Restaurant]
         }).then(function (dbRestaurant) {
+            console.log("This is single restaurant" + dbRestaurant);
             res.json(dbRestaurant);
-        });
-        console.log("This is single restaurant" + dbRestaurant);
+            
+        })
     });
 
     // POST route for saving a new restaurant
     app.post("/api/restaurant", function (req, res) {
         db.Restaurant.create(req.body).then(function (dbRestaurant) {
             res.json(dbRestaurant);
+            console.log("New restaurant added" + dbRestaurant);
         });
-        console.log("New restaurant added" + dbRestaurant);
     });
 
     // DELETE route for deleting restaurant
