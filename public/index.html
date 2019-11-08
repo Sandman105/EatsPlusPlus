@@ -7,6 +7,8 @@
     <title>eats ++</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Font Awesome  -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Our css -->
@@ -25,7 +27,7 @@
                 <a class="waves-effect waves-light btn-small search_btn"><i class="material-icons left">search</i>search</a>
                 <div class="row searchbar" style="display:none">
                     <div class="col s10">
-                        <input placeholder="Search" id="search" type="text" class=" searchbar"></input>
+                        <input placeholder="Search Category" type="text" class="search_text"></input>
                     </div>
                     <div class="col s2">
                         <i class="material-icons searchbar_btn">search</i>
@@ -34,7 +36,7 @@
             </div>
             <div class="col s1"></div>
             <div class="col s2">
-                    <img src="./assets/images/burger.jpg" alt="" height=100></img>
+                <a href="/"><img src="./assets/images/burger.jpg" alt="" height=100></img></a>
             </div>
             <div class="col s1"></div>
             <div class="col s4">
@@ -64,13 +66,14 @@
                     <button class="btn waves-effect waves-light submitBtn" type="submit" name="action">Submit<i class="material-icons right">send</i></button>
                 </form>
             </div>
-            <div class="begin_search">
+            <!-- Big Searchbar -->
+            <!-- <div class="begin_search">
                 <br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <input placeholder="What's the name" id="restaurant_name" type="text" class=" begin_searchbar col s10">
                 <i class="material-icons right begin_searchbar_btn col s2">search</i>
-            </div>
+            </div> -->
             <!-- Restaurant list display area -->
-            <div class="col s10 offset-s1 list-display" style="display:none">
+            <div class="col s10 offset-s1 list-display">
                 <table>
                     <thead>
                         <tr>
