@@ -66,17 +66,57 @@ module.exports = function (app) {
         }
       ],
       attributes: ["name"],
-        where: { id: restaurantID },
-        group: ['name', 'rating'],
-        order: [[db.sequelize.col("rating"), "DESC"]],
-        raw: true
+      where: { id: restaurantID },
+      group: ['name', 'rating'],
+      order: [[db.sequelize.col("rating"), "DESC"]],
+      raw: true
     }).then(function (result) {
-          console.log(result);
-          //res.json(result); //uncomment when done testing and want to send to front-end
-        });
+      console.log(result);
+      //res.json(result); //uncomment when done testing and want to send to front-end
+    });
   });
 
-  app.post("/api/new/:userId/:restaurantId/", (req, res) => {
+  app.get("/api/search/:query", (req, res) => {
+    var query = req.params.query;
+    db.Restaurant.findAll({
+      where: {
+        [db.sequelize.Op.or]: [
+          {
+            name: {
+              [db.sequelize.Op.like]: '%' + query + '%'
+            }
+          },
+          {
+            category: {
+              [db.sequelize.Op.like]: '%' + query + '%'
+            }
+          }
+        ]
+      }
+    }).then(function (result) {
+      console.log(result); //result[0].Restaurant.dataValues.{columnsOfTables}
+      //res.json(result); //uncomment when done testing and want to send to front-end
+    });
+  });
+
+  app.post("/api/new/restaurant", (req, res) => {
+    var name = req.body.name;
+    var category = req.body.category;
+    var address = req.body.address;
+
+    db.Restaurant.create({
+      name: name,
+      category: category,
+      address: address,
+      createdAt: [db.sequelize.fn("NOW")],
+      updatedAt: [db.sequelize.fn("NOW")]
+    }).then(function (result) {
+      console.log("Restaurant created \n");
+      console.log(result);
+    });
+  });
+
+  app.post("/api/new/rating/:userId/:restaurantId/", (req, res) => {
     var userId = req.params.userId;
     var restId = req.params.restaurantId;
 
@@ -86,6 +126,9 @@ module.exports = function (app) {
       body: req.body.body,
       rating: req.body.rating,
       createdAt: db.sequelize.fn('NOW') //this might not work...fingers crossed
+    }).then(function (result) {
+      console.log("Restaurant created \n");
+      console.log(result);
     });
   });
 
