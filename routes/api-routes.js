@@ -68,6 +68,7 @@ module.exports = function (app) {
       attributes: ["name"],
         where: { id: restaurantID },
         group: ['name', 'rating'],
+        order: [[db.sequelize.col("rating"), "DESC"]],
         raw: true
     }).then(function (result) {
           console.log(result);
