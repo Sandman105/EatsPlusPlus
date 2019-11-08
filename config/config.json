@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "vsmaster",
+    "password": "",
     "database": "EatsPlusPlus",
     "host": "127.0.0.1",
     "dialect": "mysql"
