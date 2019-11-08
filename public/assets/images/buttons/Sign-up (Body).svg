@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 668 668" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-666,-666)">
+        <g id="Sign-up--Body-" serif:id="Sign-up (Body)" transform="matrix(0.971049,0,0,0.971049,318.8,491.926)">
+            <circle cx="701.51" cy="523.222" r="343.271" style="fill:rgb(235,235,235);"/>
+            <clipPath id="_clip1">
+                <circle cx="701.51" cy="523.222" r="343.271"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1.02256,0,0,1.06306,-1177.27,156.634)">
+                    <text x="1565.15px" y="494.478px" style="font-family:'PricedownBl-Regular', 'Pricedown', sans-serif;font-weight:900;font-size:174.197px;">sn-up</text>
+                </g>
+                <g id="_---1-" serif:id="+ (1)" transform="matrix(277.261,0,0,277.261,759.912,393.53)">
+                    <path d="M0.241,-0.111C0.226,-0.111 0.212,-0.117 0.201,-0.127C0.191,-0.138 0.185,-0.152 0.185,-0.167L0.185,-0.259L0.094,-0.259C0.063,-0.259 0.038,-0.284 0.038,-0.315L0.038,-0.323C0.038,-0.354 0.063,-0.379 0.094,-0.379L0.185,-0.379L0.185,-0.47C0.185,-0.501 0.21,-0.526 0.241,-0.526L0.249,-0.526C0.28,-0.526 0.305,-0.501 0.305,-0.47L0.305,-0.379L0.397,-0.379C0.412,-0.379 0.426,-0.373 0.437,-0.363C0.447,-0.352 0.453,-0.338 0.453,-0.323L0.453,-0.315C0.453,-0.3 0.447,-0.286 0.437,-0.275C0.426,-0.265 0.412,-0.259 0.397,-0.259L0.305,-0.259L0.305,-0.167C0.305,-0.152 0.299,-0.138 0.289,-0.127C0.278,-0.117 0.264,-0.111 0.249,-0.111L0.241,-0.111Z" style="fill:rgb(187,19,1);fill-rule:nonzero;"/>
+                </g>
+                <g id="Human-figure--Body-" serif:id="Human figure (Body)" transform="matrix(1,0,0,1,0,18.5367)">
+                    <g id="Body" transform="matrix(1.02981,0,0,1.54976,329.637,-841.22)">
+                        <path d="M496.81,868.461C496.81,831.124 436.053,800.857 361.107,800.857C286.16,800.857 225.403,831.124 225.403,868.461L496.81,868.461Z" style="fill:rgb(175,175,175);"/>
+                    </g>
+                    <g id="Head" transform="matrix(1.02981,0,0,1.02981,325.283,-513.576)">
+                        <circle cx="365.335" cy="814.012" r="55.714" style="fill:rgb(175,175,175);"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

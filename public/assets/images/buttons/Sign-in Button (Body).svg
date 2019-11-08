@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 667 668" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,0,-666)">
+        <g id="Sign-in-Button--Body-" serif:id="Sign-in Button (Body)" transform="matrix(0.971049,0,0,0.971049,-347.867,491.926)">
+            <circle cx="701.51" cy="523.222" r="343.271" style="fill:rgb(235,235,235);"/>
+            <clipPath id="_clip1">
+                <circle cx="701.51" cy="523.222" r="343.271"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1.02256,0,0,1.06306,-1154.55,156.634)">
+                    <text x="1565.15px" y="494.478px" style="font-family:'PricedownBl-Regular', 'Pricedown', sans-serif;font-weight:900;font-size:174.197px;">sn-in</text>
+                </g>
+                <g id="Human-figure--Body-" serif:id="Human figure (Body)" transform="matrix(1,0,0,1,-1.13687e-13,18.5367)">
+                    <g id="Body" transform="matrix(1.02981,0,0,1.54976,329.637,-841.22)">
+                        <path d="M496.81,868.461C496.81,831.124 436.053,800.857 361.107,800.857C286.16,800.857 225.403,831.124 225.403,868.461L496.81,868.461Z" style="fill:rgb(175,175,175);"/>
+                    </g>
+                    <g id="Head" transform="matrix(1.02981,0,0,1.02981,325.283,-513.576)">
+                        <circle cx="365.335" cy="814.012" r="55.714" style="fill:rgb(175,175,175);"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

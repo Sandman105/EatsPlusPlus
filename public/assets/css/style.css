@@ -1,6 +1,38 @@
+/*Container or DOM section*/
 .container {
     text-align: center;
+    width: 100%
 }
+
+/*Header section--------------------------------------------------------------*/
+.header {
+    width: 100%;
+    height: 7.5vh;
+    background: rgb(187,19,1);
+}
+    .button {
+        margin-top: 1vh;
+    }
+/*Header section--------------------------------------------------------------*/
+
+
+/*Blank/junk divs section--------------------------------------------------------------*/
+
+.blank-div-1 {
+    width: auto;
+    height: 2vh;
+}
+
+.blank-div-2 {
+    width: auto;
+    height: 5vh;
+}
+
+
+/*Blank/junk divs section--------------------------------------------------------------*/
+
+
+
 
 .add_restaurant, .search_btn, .search_btn_destroy, .developer, .about_us {
     margin-top: 5px;
@@ -47,3 +79,12 @@
 li {
     margin-left: 23px;
 }
+
+/*Footer section--------------------------------------------------------------*/
+.footer {
+    width: 100%;
+    height: 15vh;
+    background: rgb(0,0,0);
+}
+
+/*Footer section--------------------------------------------------------------*/

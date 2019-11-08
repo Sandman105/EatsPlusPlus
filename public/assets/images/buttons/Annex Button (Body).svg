@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 667 667" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="Annex-Button--Body-" serif:id="Annex Button (Body)" transform="matrix(0.971049,0,0,0.971049,-347.867,-174.741)">
+        <circle cx="701.51" cy="523.222" r="343.271" style="fill:rgb(235,235,235);"/>
+        <clipPath id="_clip1">
+            <circle cx="701.51" cy="523.222" r="343.271"/>
+        </clipPath>
+        <g clip-path="url(#_clip1)">
+            <g id="_---1-" serif:id="+ (1)" transform="matrix(728.707,0,0,728.707,522.612,755.315)">
+                <path d="M0.206,-0.111C0.194,-0.111 0.185,-0.12 0.185,-0.132L0.185,-0.259L0.059,-0.259C0.054,-0.259 0.048,-0.261 0.044,-0.265C0.04,-0.269 0.038,-0.275 0.038,-0.28L0.038,-0.358C0.038,-0.363 0.04,-0.369 0.044,-0.373C0.048,-0.377 0.054,-0.379 0.059,-0.379L0.185,-0.379L0.185,-0.505C0.185,-0.51 0.187,-0.516 0.191,-0.52C0.195,-0.524 0.201,-0.526 0.206,-0.526L0.284,-0.526C0.289,-0.526 0.295,-0.524 0.299,-0.52C0.303,-0.516 0.305,-0.51 0.305,-0.505L0.305,-0.379L0.432,-0.379C0.444,-0.379 0.453,-0.37 0.453,-0.358L0.453,-0.28C0.453,-0.268 0.444,-0.259 0.432,-0.259L0.305,-0.259L0.305,-0.132C0.305,-0.12 0.296,-0.111 0.284,-0.111L0.206,-0.111Z" style="fill:rgb(187,19,1);fill-rule:nonzero;"/>
+            </g>
+        </g>
+    </g>
+</svg>

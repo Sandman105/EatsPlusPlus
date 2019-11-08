@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 667 667" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-1333,0)">
+        <g id="Info-Button--Body-" serif:id="Info Button (Body)" transform="matrix(0.971049,0,0,0.971049,985.466,-174.741)">
+            <circle cx="701.51" cy="523.222" r="343.271" style="fill:rgb(235,235,235);"/>
+            <clipPath id="_clip1">
+                <circle cx="701.51" cy="523.222" r="343.271"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1.03456,0,0,1.07553,-1113.52,43.3138)">
+                    <text x="1565.15px" y="494.478px" style="font-family:'PricedownBl-Regular', 'Pricedown', sans-serif;font-weight:900;font-size:219.425px;">io</text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
