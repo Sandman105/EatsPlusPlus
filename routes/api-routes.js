@@ -31,31 +31,32 @@ module.exports = function (app) {
   });
 
   app.get("/api/rankRestaurants", (req, res) => {
-    db.Restaurant.findAll({
-      include: [
-        {
-          model: db.Rating,
-          required: true, //makes it an inner join rather than left outer which is default
-          attributes: [[db.sequelize.fn("AVG", db.sequelize.col("rating")), "rating"]]
-        }
-      ],
-      attributes: [
-        //[db.sequelize.fn('AVG', db.sequelize.col("Rating.rating")), "rating"],
-        "Name",
-        "Id"
-      ],
-      group: ["Name", "Id"],
-      //order: [[db.sequelize.col("rating"), "DESC"]], //confirm with Joe why this does not work
-      raw: true
-    })
-      //db.sequelize.query("select AVG(rating.rating)as rating, restaurant.id, Restaurant.Name AS name from rating inner join restaurant on rating.restaurantid = restaurant.id group by name, id order by rating desc",{type: db.sequelize.QueryTypes.SELECT})
+    // db.Restaurant.findAll({
+    //   include: [
+    //     {
+    //       model: db.Rating,
+    //       required: true, //makes it an inner join rather than left outer which is default
+    //       attributes: [[db.sequelize.fn("AVG", db.sequelize.col("rating")), "avgRating"]]
+    //       //order: [["avgRating", "DESC"]]
+    //     }
+    //   ],
+    //   attributes: [
+    //     //[db.sequelize.fn('AVG', db.sequelize.col("Rating.rating")), "rating"],
+    //     "Name",
+    //     "Id"
+    //   ],
+    //   group: ["Name", "Id"],
+    //   order: [[db.Rating, "avgRating", "DESC"]], //confirm with Joe why this does not work
+    //   raw: true
+    // })
+      db.sequelize.query("select AVG(rating.rating)as rating, restaurant.id, Restaurant.Name AS name from rating inner join restaurant on rating.restaurantid = restaurant.id group by name, id order by rating desc",{type: db.sequelize.QueryTypes.SELECT})
       .then(function (result) {
         console.log(result);
         //res.json(result); //uncomment when done testing and want to send to front-end
       }).catch(console.error);
   });
 
-  app.get("/api/getRestaurantInfo/:id", (req, res) => {
+  app.get("/api/ratingSummary/:id", (req, res) => {
     var restaurantID = req.params.id;
     db.Restaurant.findAll({
       include: [
@@ -78,41 +79,45 @@ module.exports = function (app) {
 
   app.get("/api/search/:query", (req, res) => {
     var query = req.params.query;
-    db.Restaurant.findAll({
-      where: {
-        [db.sequelize.Op.or]: [
-          {
-            name: {
-              [db.sequelize.Op.like]: '%' + query + '%'
-            }
-          },
-          {
-            category: {
-              [db.sequelize.Op.like]: '%' + query + '%'
-            }
-          }
-        ]
-      }
-    }).then(function (result) {
+    // db.Restaurant.findAll({
+    //   where: {
+    //     [db.sequelize.Op.or]: [
+    //       {
+    //         name: {
+    //           [db.sequelize.Op.like]: '%' + query + '%'
+    //         }
+    //       },
+    //       {
+    //         category: {
+    //           [db.sequelize.Op.like]: '%' + query + '%'
+    //         }
+    //       }
+    //     ]
+    //   }
+    // })
+    db.sequelize.query("select restaurant.name, restaurant.id, restaurant.category, restaurant.address, avg(rating.rating ) as avgRating from rating inner join restaurant on rating.restaurantid = restaurant.id where restaurant.name like '%italian%' or restaurant.category like '%italian%' group by name, id, category, address order by avgRating desc;",{type: db.sequelize.QueryTypes.SELECT})
+    .then(function (result) {
       console.log(result); //result[0].Restaurant.dataValues.{columnsOfTables}
       //res.json(result); //uncomment when done testing and want to send to front-end
     });
   });
 
+  //app.get("/api/getRestaurantInfo/:id"); //finish this pls
+
   app.post("/api/new/restaurant", (req, res) => {
-    var name = req.body.name;
-    var category = req.body.category;
-    var address = req.body.address;
+    console.log(req.body)
+    var name = req.body.newRestaurantName;
+    var category = req.body.newRestaurantCategory;
+    var address = req.body.newRestaurantAddress;
 
     db.Restaurant.create({
       name: name,
       category: category,
-      address: address,
-      createdAt: [db.sequelize.fn("NOW")],
-      updatedAt: [db.sequelize.fn("NOW")]
+      address: address
     }).then(function (result) {
       console.log("Restaurant created \n");
       console.log(result);
+      res.json(result);
     });
   });
 
