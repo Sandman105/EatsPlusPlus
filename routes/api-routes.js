@@ -32,31 +32,53 @@ module.exports = function (app) {
 
   app.get("/api/rankRestaurants", (req, res) => {
     db.Restaurant.findAll({
-      // Join with 'Comment', but don't actually return the comments
-      include: [{ model: Rating, attributes: [rating] }],
-      // Return SUM(Comment.likes) as the only attribute
-      attributes: [[db.fn('AVG', db.col('Rating.rating')), 'rating'], [db.col('Restaurant.Name'),'name'], [db.col('Restaurant.id'),'id']],
-      group: ['name', 'id'],
+      include: [
+        {
+          model: db.Rating,
+          required: true, //makes it an inner join rather than left outer which is default
+          attributes: [[db.sequelize.fn("AVG",db.sequelize.col("rating")), "rating"]]
+        }
+      ],
+       attributes: [
+         //[db.sequelize.fn('AVG', db.sequelize.col("Rating.rating")), "rating"],
+         "Name",
+         "Id"
+       ],
+      group: ["Name", "Id"],
+      //order: [[db.sequelize.col("rating"), "DESC"]], //confirm with Joe why this does not work
       raw: true
-      //where: { publishDate: { gte: new Date('2015-05-01') } },
-
-    }).then(function (result) {
-      console.log(JSON.stringify(result));
-      //res.json(result); //uncomment when done testing and want to send to front-end
-    }).catch(console.error);
+    })
+      //db.sequelize.query("select AVG(rating.rating)as rating, restaurant.id, Restaurant.Name AS name from rating inner join restaurant on rating.restaurantid = restaurant.id group by name, id order by rating desc",{type: db.sequelize.QueryTypes.SELECT})
+      .then(function (result) {
+        console.log(result);
+        //res.json(result); //uncomment when done testing and want to send to front-end
+      }).catch(console.error);
   });
 
   app.get("/api/getRestaurantInfo/:id", (req, res) => {
     var restaurantID = req.params.id;
     db.Restaurant.findAll({
       include: [{ model: Rating, attributes: [rating] }],
-      attributes: [[db.fn('COUNT', db.col('Rating.rating'),'rating')], [db.col('Rating.rating')], [db.col('name')]],
-      where: {id: restaurantID},
-      group: ['name','rating'],
+      attributes: [[db.fn('COUNT', db.col('Rating.rating'), 'rating')], [db.col('Rating.rating')], [db.col('name')]],
+      where: { id: restaurantID },
+      group: ['name', 'rating'],
       raw: true
     }).then(function (result) {
       console.log(JSON.stringify(result));
       //res.json(result); //uncomment when done testing and want to send to front-end
+    });
+  });
+
+  app.post("/api/new/:userId/:restaurantId/", (req, res) => {
+    var userId = req.params.userId;
+    var restId = req.params.restaurantId;
+
+    db.Rating.create({
+      RestaurantId: restId,
+      UserId: userId,
+      body: req.body.body,
+      rating: req.body.rating,
+      createdAt: db.sequelize.fn('NOW') //this might not work...fingers crossed
     });
   });
 
