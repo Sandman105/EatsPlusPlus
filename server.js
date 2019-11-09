@@ -29,5 +29,6 @@ require("./routes/user-api-routes")(app);
 db.sequelize.sync({ force: false }).then(function () {
   app.listen(PORT, function () {
     console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
+    console.log("\n\n\n\n");
   });
 });
