@@ -31,25 +31,25 @@ module.exports = function (app) {
   });
 
   app.get("/api/rankRestaurants", (req, res) => {
-    // db.Restaurant.findAll({
-    //   include: [
-    //     {
-    //       model: db.Rating,
-    //       required: true, //makes it an inner join rather than left outer which is default
-    //       attributes: [[db.sequelize.fn("AVG", db.sequelize.col("rating")), "avgRating"]]
-    //       //order: [["avgRating", "DESC"]]
-    //     }
-    //   ],
-    //   attributes: [
-    //     //[db.sequelize.fn('AVG', db.sequelize.col("Rating.rating")), "rating"],
-    //     "Name",
-    //     "Id"
-    //   ],
-    //   group: ["Name", "Id"],
-    //   order: [[db.Rating, "avgRating", "DESC"]], //confirm with Joe why this does not work
-    //   raw: true
-    // })
-      db.sequelize.query("select AVG(rating.rating)as rating, restaurant.id, Restaurant.Name AS name from rating inner join restaurant on rating.restaurantid = restaurant.id group by name, id order by rating desc",{type: db.sequelize.QueryTypes.SELECT})
+    db.Restaurant.findAll({
+      include: [
+        {
+          model: db.Rating,
+          required: true, //makes it an inner join rather than left outer which is default
+          attributes: [[db.sequelize.fn("AVG", db.sequelize.col("rating")), "avgRating"]]
+          //order: [["avgRating", "DESC"]]
+        }
+      ],
+      attributes: [
+        //[db.sequelize.fn('AVG', db.sequelize.col("Rating.rating")), "rating"],
+        "Name",
+        "Id"
+      ],
+      group: ["Name", "Id"],
+      order: [[db.sequelize.fn('AVG', db.sequelize.col('rating')), 'DESC']], //confirm with Joe why this does not work
+      raw: true
+    })
+      //db.sequelize.query("select AVG(rating.rating)as rating, restaurant.id, Restaurant.Name AS name from rating inner join restaurant on rating.restaurantid = restaurant.id group by name, id order by rating desc",{type: db.sequelize.QueryTypes.SELECT})
       .then(function (result) {
         console.log(result);
         //res.json(result); //uncomment when done testing and want to send to front-end
@@ -69,7 +69,8 @@ module.exports = function (app) {
       attributes: ["name"],
       where: { id: restaurantID },
       group: ['name', 'rating'],
-      order: [[db.sequelize.col("rating"), "DESC"]],
+      //order: [[db.sequelize.col("rating"), "DESC"]],
+      order: [[db.sequelize.fn('COUNT', db.sequelize.col('rating')), 'DESC']],
       raw: true
     }).then(function (result) {
       console.log(result);
@@ -79,26 +80,26 @@ module.exports = function (app) {
 
   app.get("/api/search/:query", (req, res) => {
     var query = req.params.query;
-    // db.Restaurant.findAll({
-    //   where: {
-    //     [db.sequelize.Op.or]: [
-    //       {
-    //         name: {
-    //           [db.sequelize.Op.like]: '%' + query + '%'
-    //         }
-    //       },
-    //       {
-    //         category: {
-    //           [db.sequelize.Op.like]: '%' + query + '%'
-    //         }
-    //       }
-    //     ]
-    //   }
-    // })
-    db.sequelize.query("select restaurant.name, restaurant.id, restaurant.category, restaurant.address, avg(rating.rating ) as avgRating from rating inner join restaurant on rating.restaurantid = restaurant.id where restaurant.name like '%italian%' or restaurant.category like '%italian%' group by name, id, category, address order by avgRating desc;",{type: db.sequelize.QueryTypes.SELECT})
+    db.Restaurant.findAll({
+      where: {
+        [db.sequelize.Op.or]: [
+          {
+            name: {
+              [db.sequelize.Op.like]: '%' + query + '%'
+            }
+          },
+          {
+            category: {
+              [db.sequelize.Op.like]: '%' + query + '%'
+            }
+          }
+        ]
+      }
+    })
+    //db.sequelize.query("select restaurant.name, restaurant.id, restaurant.category, restaurant.address, avg(rating.rating ) as avgRating from rating inner join restaurant on rating.restaurantid = restaurant.id where restaurant.name like '%italian%' or restaurant.category like '%italian%' group by name, id, category, address order by avgRating desc;",{type: db.sequelize.QueryTypes.SELECT})
     .then(function (result) {
       console.log(result); //result[0].Restaurant.dataValues.{columnsOfTables}
-      //res.json(result); //uncomment when done testing and want to send to front-end
+      res.json(result); //uncomment when done testing and want to send to front-end
     });
   });
 
@@ -129,8 +130,8 @@ module.exports = function (app) {
       RestaurantId: restId,
       UserId: userId,
       body: req.body.body,
-      rating: req.body.rating,
-      createdAt: db.sequelize.fn('NOW') //this might not work...fingers crossed
+      rating: req.body.rating
+      //createdAt: db.sequelize.fn('NOW') //this might not work...fingers crossed
     }).then(function (result) {
       console.log("Restaurant created \n");
       console.log(result);
