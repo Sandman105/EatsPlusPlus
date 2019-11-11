@@ -52,7 +52,7 @@ module.exports = function (app) {
       //db.sequelize.query("select AVG(rating.rating)as rating, restaurant.id, Restaurant.Name AS name from rating inner join restaurant on rating.restaurantid = restaurant.id group by name, id order by rating desc",{type: db.sequelize.QueryTypes.SELECT})
       .then(function (result) {
         console.log(result);
-        //res.json(result); //uncomment when done testing and want to send to front-end
+        res.json(result); //uncomment when done testing and want to send to front-end
       }).catch(console.error);
   });
 
@@ -74,7 +74,7 @@ module.exports = function (app) {
       raw: true
     }).then(function (result) {
       console.log(result);
-      //res.json(result); //uncomment when done testing and want to send to front-end
+      res.json(result); //uncomment when done testing and want to send to front-end
     });
   });
 
@@ -103,7 +103,33 @@ module.exports = function (app) {
     });
   });
 
-  //app.get("/api/getRestaurantInfo/:id"); //finish this pls
+  // app.get("/api/getRestaurantReviews/:id", (req, res) => {
+  //   var restId = req.params.id;
+  //   db.Rating.findAll({
+  //     include: [
+  //       {
+  //         model: db.Restaurant,
+  //         required: true, //makes this an inner join rather than left outer join
+  //         attributes: ["name"],
+  //         include: [
+  //           {
+  //             model: db.User,
+  //             required: true, 
+  //             attributes: ["nameFirst", "nameLast"]
+  //           }
+  //         ]
+  //         //TODO: put restaurant as the base and rating in the middle and then user as the last include
+  //       }
+  //     ],
+      
+  //     attributes: ["body", "rating", "createdAt"],
+  //     where: {Id: restId},
+  //     order: [["createdAt", "DESC"]]
+  //   }).then(function (result) {
+  //     console.log(result);
+  //     res.json(result);
+  //   });
+  // });
 
   app.post("/api/new/restaurant", (req, res) => {
     console.log(req.body)
@@ -135,6 +161,7 @@ module.exports = function (app) {
     }).then(function (result) {
       console.log("Restaurant created \n");
       console.log(result);
+      res.json(result);
     });
   });
 
