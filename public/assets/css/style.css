@@ -36,6 +36,14 @@
     cursor: pointer;
 }
 
+.rating_star .rating_text {
+    visibility: hidden;
+}
+
+.rating_star:hover .rating_text {
+    visibility: visible;
+}
+
 .commentSubmitBtn {
     margin-left: 12px;
 }

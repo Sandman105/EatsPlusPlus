@@ -35,7 +35,7 @@ module.exports = function (app) {
       include: [
         {
           model: db.Rating,
-          required: true, //makes it an inner join rather than left outer which is default
+          //required: true, //makes it an inner join rather than left outer which is default
           attributes: [[db.sequelize.fn("AVG", db.sequelize.col("rating")), "avgRating"]]
           //order: [["avgRating", "DESC"]]
         }
@@ -81,6 +81,19 @@ module.exports = function (app) {
   app.get("/api/search/:query", (req, res) => {
     var query = req.params.query;
     db.Restaurant.findAll({
+      include: [
+        {
+          model: db.Rating,
+          required: true, //makes it an inner join rather than left outer which is default
+          attributes: [[db.sequelize.fn("AVG", db.sequelize.col("rating")), "avgRating"]]
+          //order: [["avgRating", "DESC"]]
+        }
+      ],
+      attributes: [
+        //[db.sequelize.fn('AVG', db.sequelize.col("Rating.rating")), "rating"],
+        "Name",
+        "Id"
+      ],
       where: {
         [db.sequelize.Op.or]: [
           {
@@ -94,7 +107,11 @@ module.exports = function (app) {
             }
           }
         ]
-      }
+      },
+      group: ["Name", "Id"],
+      order: [[db.sequelize.fn('AVG', db.sequelize.col('rating')), 'DESC']], //confirm with Joe why this does not work
+      raw: true
+
     })
     //db.sequelize.query("select restaurant.name, restaurant.id, restaurant.category, restaurant.address, avg(rating.rating ) as avgRating from rating inner join restaurant on rating.restaurantid = restaurant.id where restaurant.name like '%italian%' or restaurant.category like '%italian%' group by name, id, category, address order by avgRating desc;",{type: db.sequelize.QueryTypes.SELECT})
     .then(function (result) {
@@ -144,6 +161,7 @@ module.exports = function (app) {
     }).then(function (result) {
       console.log("Restaurant created \n");
       console.log(result);
+      //result.Restaurant.dataValues.id
       res.json(result);
     });
   });
