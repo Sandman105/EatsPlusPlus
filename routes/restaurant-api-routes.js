@@ -43,6 +43,38 @@ module.exports = function (app) {
         })
     });
 
+    app.get("/api/getComments/:id", function (req, res){
+
+        db.Rating.findAll({
+            where: {
+                RestaurantId: req.params.id
+                
+            },
+            
+            include: [db.Restaurant],
+            
+
+        }).then(function (dbRestaurantComment) {
+            console.log("This is a single restaurant with all comments" + dbRestaurantComment);
+            
+            var comments = dbRestaurantComment.map(function(comment) {
+                return {
+                    body: comment.body,
+                    rating: comment.rating,
+                    name: comment.Restaurant.name,
+                    category: comment.Restaurant.category
+                }
+            })
+            console.log(dbRestaurantComment)
+            res.json(comments);
+
+        }).catch(function (err) {
+            console.log(err)
+        })
+
+
+    })
+
     // Get route for retrieving a single restaurant
     app.get("/api/restaurant/:id", function (req, res) {
         // Here we add an "include" property to our options in our findOne query
