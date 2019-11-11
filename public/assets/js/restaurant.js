@@ -27,14 +27,16 @@ $(document).ready(function () {
     // Submit comments
     $(".commentSubmitBtn").on("click", function () {
         var newCommentObj = {
-            newCommentTitile: $("#comment_title").val().trim(),
+            newCommentId: $("#comment_id").val().trim(),
+            newCommentRating: $("#comment_rating").val().trim(),
             newCommentBody: $("#comment_body").val().trim()
         };
         $.post("/api/new/rating/" + id, newCommentObj)
             .then(function (err) {
                 if (err) throw err;
             });
-        $("#comment_title").val("");
+        $("#comment_id").val("");
+        $("#comment_rating").val("");
         $("#comment_body").val("");
         location.reload();
     });
