@@ -42,7 +42,7 @@ $(document).ready(function () {
     });
 
     // Get all comments for a restaurant
-    $.get("/api/getomments/" + id)
+    $.get("/api/getComments/" + id)
         .then(function (result) {
             var comment = $("<ul class='row'>");
             var commentUser = $("<li> User Id: " + result.UserID + "</li>");

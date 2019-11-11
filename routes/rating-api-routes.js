@@ -18,7 +18,7 @@ module.exports = function (app) {
         // We set the value to an array of the models we want to include in a left outer join
         // In this case, just db.Rating.
         //TODO: Do we need to have a findOne rating?
-        db.Rating.findOne({
+        db.Rating.findAll({
             where: {
                 id: req.params.id
             },
