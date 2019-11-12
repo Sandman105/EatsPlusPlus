@@ -113,11 +113,11 @@ module.exports = function (app) {
       raw: true
 
     })
-    //db.sequelize.query("select restaurant.name, restaurant.id, restaurant.category, restaurant.address, avg(rating.rating ) as avgRating from rating inner join restaurant on rating.restaurantid = restaurant.id where restaurant.name like '%italian%' or restaurant.category like '%italian%' group by name, id, category, address order by avgRating desc;",{type: db.sequelize.QueryTypes.SELECT})
-    .then(function (result) {
-      console.log(result); //result[0].Restaurant.dataValues.{columnsOfTables}
-      res.json(result); //uncomment when done testing and want to send to front-end
-    });
+      //db.sequelize.query("select restaurant.name, restaurant.id, restaurant.category, restaurant.address, avg(rating.rating ) as avgRating from rating inner join restaurant on rating.restaurantid = restaurant.id where restaurant.name like '%italian%' or restaurant.category like '%italian%' group by name, id, category, address order by avgRating desc;",{type: db.sequelize.QueryTypes.SELECT})
+      .then(function (result) {
+        console.log(result); //result[0].Restaurant.dataValues.{columnsOfTables}
+        res.json(result); //uncomment when done testing and want to send to front-end
+      });
   });
 
   // app.get("/api/getRestaurantReviews/:id", (req, res) => {
@@ -138,7 +138,7 @@ module.exports = function (app) {
   //         //TODO: put restaurant as the base and rating in the middle and then user as the last include
   //       }
   //     ],
-      
+
   //     attributes: ["body", "rating", "createdAt"],
   //     where: {Id: restId},
   //     order: [["createdAt", "DESC"]]
@@ -156,7 +156,7 @@ module.exports = function (app) {
 
     db.Restaurant.create({
       name: name,
-      category: category,
+      category: category.toLowerCase(),
       address: address
     }).then(function (result) {
       console.log("Restaurant created \n");
@@ -166,21 +166,44 @@ module.exports = function (app) {
     });
   });
 
-  app.post("/api/new/rating/:userId/:restaurantId/", (req, res) => {
-    var userId = req.params.userId;
+  app.post("/api/new/rating/:restaurantId", (req, res) => {
+    //var userId = req.params.userId;
     var restId = req.params.restaurantId;
 
     db.Rating.create({
       RestaurantId: restId,
-      UserId: userId,
-      body: req.body.body,
-      rating: req.body.rating
+      UserId: req.body.newCommentId,
+      body: req.body.newCommentBody,
+      rating: req.body.newCommentRating
       //createdAt: db.sequelize.fn('NOW') //this might not work...fingers crossed
     }).then(function (result) {
-      console.log("Restaurant created \n");
+      console.log("Rating created \n");
       console.log(result);
-      res.json(result);
-    });
+      return restId
+    }).then(function (restaurantId) {
+      db.Rating.findAll({
+        where: {
+          RestaurantId: restaurantId
+        },
+        include: [db.Restaurant],
+      }).then(function (dbRestaurantComment) {
+        console.log("This is a single restaurant with all comments" + dbRestaurantComment);
+
+        var comments = dbRestaurantComment.map(function (comment) {
+          return {
+            body: comment.body,
+            rating: comment.rating,
+            name: comment.Restaurant.name,
+            category: comment.Restaurant.category,
+            createdAt: comment.createdAt
+          }
+        });
+        console.log(dbRestaurantComment)
+        res.json(comments);
+      }).catch(function (err) {
+        console.log(err)
+      });
+    })
   });
 
   // Route for logging user out

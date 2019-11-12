@@ -2,6 +2,8 @@ $(document).ready(function () {
     var url = window.location.search;
     var id = url.split("=")[1];
 
+    // $(".commentSubmitBtn").attr("action", "/restaurant?id=" + id);
+
     // Prepare stars function
     function getStars(rating) {
         rating = Math.round(rating * 2) / 2;
@@ -13,49 +15,56 @@ $(document).ready(function () {
             output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
         return output.join('');
     };
-    
+
     // Show selected restaurant detail
     $.get("/api/getRestaurantInfo/" + id)
         .then(function (result) {
-            var name = $("<h3>" + result[0].name + "</h3>");
-            var category = $("<h4>" + result[0].category + "</h4>");
+            var name = $("<h3>" + (result[0].name).toUpperCase() + "</h3>");
+            var category = $("<h4>" + (result[0].category).charAt(0).toUpperCase() + (result[0].category).slice(1) + "</h4>");
             var address = $("<h5>" + result[0].address + "</h5>");
             $(".restaurant_name").append(name);
             $(".restaurant_info").append(category).append(address);
         });
 
     // Submit comments
-    $(".commentSubmitBtn").on("click", function () {
+    $(".commentSubmitBtn").on("click", function (event) {
+        event.preventDefault()
         var newCommentObj = {
             newCommentId: $("#comment_id").val().trim(),
             newCommentRating: $("#comment_rating").val().trim(),
             newCommentBody: $("#comment_body").val().trim()
         };
         $.post("/api/new/rating/" + id, newCommentObj)
-            .then(function (err) {
-                if (err) throw err;
+            .then(function (result) {
+                console.log(result);
+                //window.location.href = "/restaurant?id=" + result.restId;
+                location.reload();
             });
         $("#comment_id").val("");
         $("#comment_rating").val("");
         $("#comment_body").val("");
-        location.reload();
+        //location.reload();
     });
 
     // Get all comments for a restaurant
     $.get("/api/getComments/" + id)
         .then(function (result) {
-            var comment = $("<ul class='row'>");
-            var commentUser = $("<li> User Id: " + result.UserID + "</li>");
-            var RatingNum = parseFloat(result.rating);
-            var commentRating = $("<li>");
-            var commentRatingStar = $("<span class='rating_star'>").html(getStars(RatingNum));
-            var commentRatingNum = $("<span class='rating_text'> (" + RatingNum + ")</span>");
-            var commentBody = $("<li>" + result.body + "</li>");
-            var commentTime = $("<li>" + result.createdAt.format("YYYY-MM-DD HH:mm") + "</li>");
-            commentRatingStar.append(commentRatingNum);
-            commentRating.append(commentRatingStar);
-            comment.append(commentUser).append(commentRating).append(commentBody).append(commentTime);
-            $(".comment_area").append(comment);
+            console.log(result);
+            for (var i = 0; i < result.length; i++) {
+                var comment = $("<ul class='row'>");
+                // var commentUser = $("<li> User Id: " + result[i].UserID + "</li>");
+                var RatingNum = parseFloat(result[i].rating);
+                var commentRating = $("<li>");
+                var commentRatingStar = $("<span class='rating_star'>").html(getStars(RatingNum));
+                var commentRatingNum = $("<span class='rating_text'> (" + RatingNum + ")</span>");
+                var commentBody = $("<li>" + result[i].body + "</li>");
+                var commentTime = $("<li>" + moment(result[i].createdAt).format("MM/DD/YYYY hh:mm A") + "</li>");
+                commentRatingStar.append(commentRatingNum);
+                commentRating.append(commentRatingStar);
+                comment.append(commentRating).append(commentBody).append(commentTime);
+                // comment.append(commentUser).append(commentRating).append(commentBody).append(commentTime);
+                $(".comment_area").prepend(comment);
+            }
         });
 
     // Rating summary
