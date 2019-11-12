@@ -1,0 +1,66 @@
+.container {
+    text-align: center;
+}
+
+.add_restaurant, .search_btn, .search_btn_destroy, .developer, .about_us {
+    margin-top: 5px;
+}
+
+.searchbar_btn, .begin_searchbar_btn {
+    margin-top: 15px;
+}
+
+.searchbar {
+    margin-bottom: 0;
+}
+
+.form-area {
+    background-color: grey;
+    opacity: .90;
+    padding: 8px;
+    width: 500px;
+    position: absolute;
+    top: 11vw;
+    left: 28vw;
+    display:none;
+    border-radius: 10px;
+}
+
+.form-display {
+    background-color:#fff;
+    padding: 10px;
+    border-radius: 11px;
+}
+
+.searchbar_btn, .begin_searchbar_btn:hover {
+    cursor: pointer;
+}
+
+.rating_star .rating_text {
+    visibility: hidden;
+}
+
+.rating_star:hover .rating_text {
+    visibility: visible;
+}
+
+.each_restaurant:hover {
+    background: #ddf0f0;
+    cursor: pointer;
+}
+
+.commentSubmitBtn {
+    margin-left: 12px;
+}
+
+.comment_area {
+    padding: 0;
+}
+
+li {
+    margin-left: 23px;
+}
+
+.restaurant_info, .rating_summary {
+    text-align: left;
+}
