@@ -43,17 +43,12 @@ module.exports = function (app) {
         })
     });
 
-    app.get("/api/getComments/:id", function (req, res){
-
+    app.get("/api/getComments/:id", function (req, res) {
         db.Rating.findAll({
             where: {
                 RestaurantId: req.params.id
-                
             },
-            
             include: [db.Restaurant],
-            
-
         }).then(function (dbRestaurantComment) {
             console.log("This is a single restaurant with all comments" + dbRestaurantComment);
             
@@ -62,18 +57,16 @@ module.exports = function (app) {
                     body: comment.body,
                     rating: comment.rating,
                     name: comment.Restaurant.name,
-                    category: comment.Restaurant.category
+                    category: comment.Restaurant.category,
+                    createdAt: comment.createdAt
                 }
-            })
+            });
             console.log(dbRestaurantComment)
             res.json(comments);
-
         }).catch(function (err) {
             console.log(err)
-        })
-
-
-    })
+        });
+    });
 
     // Get route for retrieving a single restaurant
     app.get("/api/restaurant/:id", function (req, res) {
@@ -130,18 +123,4 @@ module.exports = function (app) {
             });
             console.log("Restaurant updated" + dbRestaurant);
     }); */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

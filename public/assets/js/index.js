@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     // Prepare stars function
     function getStars(rating) {
-        if(!isNaN(rating)) {
+        if (!isNaN(rating)) {
             rating = Math.round(rating * 2) / 2;
             let output = [];
             for (var i = rating; i >= 1; i--) {
@@ -19,13 +19,13 @@ $(document).ready(function () {
         }
     };
 
-    function getRestaurantList (result) {
+    function getRestaurantList(result) {
         for (var i = 0; i < result.length; i++) {
             var tableRow = $("<tr class='each_restaurant' data-id=" + result[i].Id + ">");
             var tableRank = i + 1;
             var tableDataRank = $("<td>" + tableRank + "</td>");
             var tableDataName = $("<td>" + result[i].Name + "</td>");
-            var RatingNum = parseFloat(result[i]["Ratings.avgRating"]);
+            var RatingNum = parseFloat(result[i]["Ratings.avgRating"]).toFixed(2);
             console.log(RatingNum);
             console.log(typeof (RatingNum));
             var tableDataRating = $("<td>");
@@ -72,8 +72,13 @@ $(document).ready(function () {
         $(".restaurant_list").empty();
         $.get("/api/search/" + searchCategory)
             .then(function (result) {
-                console.log(result);
-                getRestaurantList(result);
+                if (result.length === 0) {
+                    alert("No restaurant found!");
+                    location.reload();
+                } else {
+                    console.log(result);
+                    getRestaurantList(result);
+                }
             });
         $(".search_text").val("");
         $(".searchbar").attr("style", "display:none");
@@ -107,17 +112,17 @@ $(document).ready(function () {
             newRestaurantAddress: $("#restaurant_address").val().trim()
         }
         $.post("/api/new/restaurant", newRestaurantOjb)
-        .then(function (result) {
-            console.log(result);
-            location.reload(true);
-        });
+            .then(function (result) {
+                console.log(result);
+                location.reload(true);
+            });
         $(".form-area").attr("style", "display:none");
         $("#restaurant_name").val("");
         $("#restaurant_category").val("");
         $("#restaurant_address").val("");
     });
 
-    $(document.body).on("click", ".cancelBtn", function(){
+    $(document.body).on("click", ".cancelBtn", function () {
         event.preventDefault();
         $("#restaurant_name").val("");
         $("#restaurant_category").val("");
