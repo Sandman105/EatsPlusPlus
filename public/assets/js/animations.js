@@ -47,14 +47,14 @@ function step(startTime) {
 
 /*Mouse over function*/
 mouseOver = () => {
-    document.getElementById.height = element.height * 2;
-    document.getElementById.width = element.width * 2;
+    document.getElementById("demo").height = element.height * 2;
+    document.getElementById("demo").width = element.width * 2;
     }
 
 /*Mouse out function*/
 mouseOut = () => {
-    document.getElementById.height = element.height/2;
-    document.getElementById.width = element.width/2;
+    document.getElementById("demo").height = element.height/2;
+    document.getElementById("demo").width = element.width/2;
     }
 
 /*Mouse function calls*/

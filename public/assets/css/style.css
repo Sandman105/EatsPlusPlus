@@ -1,7 +1,105 @@
-.container {
-    text-align: center;
+html {
+    margin: 0px;
+    width: 100%;
 }
 
+/*Container or DOM section*/
+.container {
+    text-align: center;
+    width: 100%
+}
+
+/*Intro page section--------------------------------------------------------------*/
+.intro-body {
+    background: rgb(187,19,1);
+}
+
+.logo-background-div {
+    width: 100%;
+    height: 7.5vh;
+    background: rgb(255,255,255);
+}
+
+.intro-logo {
+    z-index: 10;
+    bottom: 13.6vh;
+    position: relative;
+}
+
+
+/*Intro page section--------------------------------------------------------------*/
+
+/*Header section--------------------------------------------------------------*/
+.header {
+    width: 100%;
+    height: 7.5vh;
+    background: rgb(187,19,1);
+    top: 0px;
+}
+    .button {
+        margin-top: 1vh;
+    }
+
+    .button:hover{
+        cursor: pointer;
+    }
+
+    .logo-header {
+        padding: 0px 0px 0px 0px;
+        margin-top: 0px;
+    }
+/*Header section--------------------------------------------------------------*/
+
+
+/*Blank/junk divs section--------------------------------------------------------------*/
+
+.blank-div-1 {
+    width: auto;
+    height: 2vh;
+}
+
+.blank-div-2 {
+    width: auto;
+    height: 5vh;
+}
+
+.blank-div-3 {
+    width: auto;
+    height: 31.29vh;
+}
+
+.blank-div-4 {
+    width: auto;
+    height: 39.89vh;
+}
+
+.blank-div-5 {
+    width: auto;
+    height: 6vh;
+}
+
+/*Blank/junk divs section--------------------------------------------------------------*/
+
+/*Information/Pic divs section--------------------------------------------------------------*/
+
+.bio-text-section {
+   width: 100%;
+   height: 15vh; 
+}
+
+.bio-pic-section {
+   width: 100%;
+   height: 15vh; 
+}
+    .bio-pic {
+        width: 10vw;
+        height: auto;
+    }
+/*Information/Pic divs section--------------------------------------------------------------*/
+
+
+
+/*  */
 .add_restaurant, .search_btn, .search_btn_destroy, .developer, .about_us {
     margin-top: 5px;
 }
@@ -12,6 +110,7 @@
 
 .searchbar {
     margin-bottom: 0;
+    margin-top: 4px;
 }
 
 .form-area {
@@ -45,7 +144,7 @@
 }
 
 .each_restaurant:hover {
-    background: #ddf0f0;
+    background: #ffe0e0;
     cursor: pointer;
 }
 
@@ -64,3 +163,22 @@ li {
 .restaurant_info, .rating_summary {
     text-align: left;
 }
+
+/*Footer section--------------------------------------------------------------*/
+.subfooter {
+    width: 100%;
+    height: 5vh;
+    background: rgb(175,175,175);
+    margin: 0px;
+}
+
+
+.footer {
+    width: 100%;
+    height: 15vh;
+    background: rgb(0,0,0);
+    margin: 0px;
+}
+
+/*Footer section--------------------------------------------------------------*/
+
