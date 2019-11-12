@@ -13,9 +13,9 @@ $(document).ready(function () {
             output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
         return output.join('');
     };
-
+    
     // Show selected restaurant detail
-    $.get("/api/getRestaurantsInfo/" + id)
+    $.get("/api/getRestaurantInfo/" + id)
         .then(function (result) {
             var name = $("<h3>" + result[0].name + "</h3>");
             var category = $("<h4>" + result[0].category + "</h4>");
@@ -46,11 +46,15 @@ $(document).ready(function () {
         .then(function (result) {
             var comment = $("<ul class='row'>");
             var commentUser = $("<li> User Id: " + result.UserID + "</li>");
-            var commentRating = $("<li><span id=star_'" + id + "'></span></li>");
+            var RatingNum = parseFloat(result.rating);
+            var commentRating = $("<li>");
+            var commentRatingStar = $("<span class='rating_star'>").html(getStars(RatingNum));
+            var commentRatingNum = $("<span class='rating_text'> (" + RatingNum + ")</span>");
             var commentBody = $("<li>" + result.body + "</li>");
             var commentTime = $("<li>" + result.createdAt.format("YYYY-MM-DD HH:mm") + "</li>");
+            commentRatingStar.append(commentRatingNum);
+            commentRating.append(commentRatingStar);
             comment.append(commentUser).append(commentRating).append(commentBody).append(commentTime);
-            $("#star_" + id).html(getStars(result.rating));
             $(".comment_area").append(comment);
         });
 

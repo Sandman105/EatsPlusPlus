@@ -3,17 +3,21 @@ var path = require("path");
 console.log("Line 3 HTML Routes");
 
 // Requiring our custom middleware for checking if a user is logged in
-var isAuthenticated = require("../config/middleware/isAuthenticated");
+// var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
 
   app.get("/", function(req, res) {
-    // If the user already has an account send them to the members page
-    // if (req.user) {
-    //   res.redirect("/index.html");
-    // }
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
+
+  app.get("/restaurant", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/restaurant.html"));
+  });
+
+  // app.get("/search", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/index.html"));
+  // });
 
   // app.get("/signup", function(req, res) {
   //   res.sendFile(path.join(__dirname, "../public/signup.html"));
@@ -35,7 +39,4 @@ module.exports = function(app) {
   //   res.sendFile(path.join(__dirname, "../public/members.html"));
   // });
 
-  app.get("/restaurant", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/restaurant.html"));
-  });
 };
