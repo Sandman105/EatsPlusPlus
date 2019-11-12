@@ -4,7 +4,47 @@ console.log("Line 3 Rating API Routes");
 
 module.exports = function (app) {
 
-    app.get("/api/rating", function (req, res) {
+    app.post("/api/new/rating/:restaurantId", (req, res) => {
+        //var userId = req.params.userId;
+        var restId = req.params.restaurantId;
+
+        db.Rating.create({
+            RestaurantId: restId,
+            UserId: req.body.newCommentId,
+            body: req.body.newCommentBody,
+            rating: req.body.newCommentRating
+            //createdAt: db.sequelize.fn('NOW') //this might not work...fingers crossed
+        }).then(function (result) {
+            console.log("Rating created \n");
+            console.log(result);
+            return restId
+        }).then(function (restaurantId) {
+            db.Rating.findAll({
+                where: {
+                    RestaurantId: restaurantId
+                },
+                include: [db.Restaurant],
+            }).then(function (dbRestaurantComment) {
+                console.log("This is a single restaurant with all comments" + dbRestaurantComment);
+
+                var comments = dbRestaurantComment.map(function (comment) {
+                    return {
+                        body: comment.body,
+                        rating: comment.rating,
+                        name: comment.Restaurant.name,
+                        category: comment.Restaurant.category,
+                        createdAt: comment.createdAt
+                    }
+                });
+                console.log(dbRestaurantComment)
+                res.json(comments);
+            }).catch(function (err) {
+                console.log(err)
+            });
+        })
+    });
+
+    app.get("/api/dev/rating", function (req, res) {
         // TODO: Not sure if i'm doing a join with db.User too to , need to follow-up with Group or TA's.
         db.Rating.findAll({ include: [db.Restaurant] }).then(function (dbRating) {
             res.json(dbRating);
@@ -13,7 +53,7 @@ module.exports = function (app) {
     });
 
 
-    app.get("/api/rating/:id", function (req, res) {
+    app.get("/api/dev/rating/:id", function (req, res) {
         // Here we add an "include" property to our options in our findOne query
         // We set the value to an array of the models we want to include in a left outer join
         // In this case, just db.Rating.
@@ -28,26 +68,4 @@ module.exports = function (app) {
         });
         console.log("User rating" + dbRating);
     });
-
-    app.post("/api/rating", function (req, res) {
-        db.Rating.create(req.body).then(function (dbRating) {
-            res.json(dbRating);
-        });
-        console.log("New rating" + dbRating);
-    });
-
-    //UPDATE: We also probably don't want the user to be able to DELETE the reivew.
-    /* app.delete("/api/rating/:id", function (req, res) {
-        db.Author.destroy({
-            where: {
-                id: req.params.id
-            }
-        }).then(function (dbRating) {
-            res.json(dbRating);
-        });
-        console.log("Deleted rating" + dbRating);
-    }); */
-
-    //TODO: Possible adding a PUT for rating update.
-
 }
