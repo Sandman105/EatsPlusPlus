@@ -24,7 +24,7 @@ $(document).ready(function () {
             var tableRow = $("<tr class='each_restaurant' data-id=" + result[i].Id + ">");
             var tableRank = i + 1;
             var tableDataRank = $("<td>" + tableRank + "</td>");
-            var tableDataName = $("<td><a href='/restaurant'>" + result[i].Name + "</td>");
+            var tableDataName = $("<td>" + result[i].Name + "</td>");
             var RatingNum = parseFloat(result[i]["Ratings.avgRating"]);
             console.log(RatingNum);
             console.log(typeof (RatingNum));
@@ -67,9 +67,9 @@ $(document).ready(function () {
 
     // Use small search icon to submit get restaurant list in specific category
     $(document.body).on("click", ".searchbar_btn", function () {
-        $(".restaurant_list").empty();
-        // location.reload();
         var searchCategory = $(".search_text").val().toLowerCase().trim();
+        // window.location.href = "/search?" + searchCategory;
+        $(".restaurant_list").empty();
         $.get("/api/search/" + searchCategory)
             .then(function (result) {
                 console.log(result);
@@ -77,15 +77,13 @@ $(document).ready(function () {
             });
         $(".search_text").val("");
         $(".searchbar").attr("style", "display:none");
-        // window.location.href = "/api/search?" + searchCategory;
     });
 
     // Restaurant click
     $(document.body).on("click", ".each_restaurant", function () {
         console.log(true);
         var selectedRestaurantId = $(this).data("id");
-        // window.location.href = "/restaurant?id=" + selectedRestaurantId;
-        // window.location.href = "/restaurant";
+        window.location.href = "/restaurant?id=" + selectedRestaurantId;
     })
 
     // Populate add-restaurant form
@@ -108,15 +106,15 @@ $(document).ready(function () {
             newRestaurantCategory: $("#restaurant_category").val().toLowerCase().trim(),
             newRestaurantAddress: $("#restaurant_address").val().trim()
         }
+        $.post("/api/new/restaurant", newRestaurantOjb)
+        .then(function (result) {
+            console.log(result);
+            location.reload(true);
+        });
+        $(".form-area").attr("style", "display:none");
         $("#restaurant_name").val("");
         $("#restaurant_category").val("");
         $("#restaurant_address").val("");
-        $.post("/api/new/restaurant", newRestaurantOjb)
-            .then(function (result) {
-                console.log(result);
-            });
-        $(".form-area").attr("style", "display:none");
-        location.reload(true);
     });
 
     $(document.body).on("click", ".cancelBtn", function(){

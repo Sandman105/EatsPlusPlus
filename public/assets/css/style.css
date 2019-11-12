@@ -44,6 +44,11 @@
     visibility: visible;
 }
 
+.each_restaurant:hover {
+    background: #ddf0f0;
+    cursor: pointer;
+}
+
 .commentSubmitBtn {
     margin-left: 12px;
 }
@@ -54,4 +59,8 @@
 
 li {
     margin-left: 23px;
+}
+
+.restaurant_info, .rating_summary {
+    text-align: left;
 }
