@@ -130,6 +130,19 @@ html {
     cursor: pointer;
 }
 
+.rating_star .rating_text {
+    visibility: hidden;
+}
+
+.rating_star:hover .rating_text {
+    visibility: visible;
+}
+
+.each_restaurant:hover {
+    background: #ddf0f0;
+    cursor: pointer;
+}
+
 .commentSubmitBtn {
     margin-left: 12px;
 }
@@ -140,6 +153,10 @@ html {
 
 li {
     margin-left: 23px;
+}
+
+.restaurant_info, .rating_summary {
+    text-align: left;
 }
 
 /*Footer section--------------------------------------------------------------*/

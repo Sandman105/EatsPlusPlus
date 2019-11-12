@@ -67,6 +67,7 @@ $(document).ready(function () {
 
     // Use small search icon to submit get restaurant list in specific category
     $(document.body).on("click", ".searchbar_btn", function () {
+        event.preventDefault();
         var searchCategory = $(".search_text").val().toLowerCase().trim();
         // window.location.href = "/search?" + searchCategory;
         $(".restaurant_list").empty();
