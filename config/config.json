@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "vsmaster",
-    "database": "EatsPlusPlus",
-    "host": "127.0.0.1",
+    "username": "bg9ctktvllcaxvrl",
+    "password": "ndydhvi2wlwd1qno",
+    "database": "pvbb19r04i4i10wk",
+    "host": "lolyz0ok3stvj6f0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "bg9ctktvllcaxvrl",
+    "password": "ndydhvi2wlwd1qno",
+    "database": "pvbb19r04i4i10wk",
+    "host": "lolyz0ok3stvj6f0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
